@@ -3,9 +3,10 @@ require './lexicon'
 class SpecialLexicon < Lexicon
 
   # Generates an array of all the anagrams of the given word
+  # Approach is, storing a hash with sorted word as key and the value
+  # is a list of words before it was sorted.
   def get_anagrams(word)
     # FILL ME IN
-
     return Lexicon.new.sortedHash[word.chars.sort.join]
   end
 

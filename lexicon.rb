@@ -1,3 +1,6 @@
+require './node'
+require './trie'
+
 class Lexicon
 
   def initialize
@@ -8,7 +11,9 @@ class Lexicon
     # A hash containing sorted words as keys and the value
     # is a list of words
     @sortedHash = {}
-
+    # A Trie data structure to hold a word's characters as Nodes.
+    @trie = Trie.new
+ 
     file = File.new('words.txt', 'r')
     while (line = file.gets)
       line.strip!.downcase!
@@ -16,13 +21,8 @@ class Lexicon
       # @array.push line
       # @hash[line] = true
 
-      # If key exists, add to existing list
-      # else, create a new list with item
-      if @sortedHash.has_key?(sortedLine)
-        @sortedHash[sortedLine].push line
-      else
-        @sortedHash[sortedLine] = [line]
-      end
+      add_anagrams(sortedLine, line)
+      @trie.add_word(line)
     end
     file.close
   end
@@ -31,6 +31,18 @@ class Lexicon
     @sortedHash
   end
 
+  def trie()
+    @trie
+  end
+
+  # If key exists, add to existing list. Else, create a new list with item
+  def add_anagrams(key, word) 
+    if @sortedHash.has_key?(key)
+      @sortedHash[key].push word
+    else
+      @sortedHash[key] = [word]
+    end
+  end
 
   # Returns true if the given word is in the lexicon
   def is_word?(word)
