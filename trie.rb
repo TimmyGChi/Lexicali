@@ -39,4 +39,33 @@ class Trie
   	find_word(word) { |found, base| return found && base.word }
   end
 
+  # use two stacks here, 
+  # 1. for keeping track of unvisited nodes (stack) 
+  # 2.  to keep track of the current string (prefix_stack).
+  def find_words_starting_with(prefix)
+  	stack = []
+  	words = []
+  	prefix_stack = []
+
+  	stack << find_word(prefix)
+  	prefix_stack << prefix.chars.take(prefix.size-1)
+
+  	return [] unless stack.first
+
+  	until stack.empty?
+  		node = stack.pop
+
+  		prefix_stack.pop and next if node == :guard_node
+
+  		prefix_stack << node.value
+  		stack  << :guard_node
+
+  		words << prefix_stack.join if node.word
+
+  		node.next.each { |n| stack << n}
+  	end
+
+  	words
+  end
+
 end

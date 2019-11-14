@@ -1,19 +1,43 @@
 function anagrams(event) {
   word = $('#anagram-word').val();
-  window.location = '/anagrams/' + word;
+
+  // avoid page reload by modifying url and then manually making GET request
+  var url = '/anagrams/'+word;
+  window.history.pushState({id: 'Lexicali'}, 'Lexicali', url);
+  $.get(url, function (data, status) {
+    if (status == "success") {
+      document.body.innerHTML = data;
+    }
+  });
   return false;
 }
 
 function prefixes(event) {
   word = $('#prefix').val();
-  window.location = '/prefixed/' + word;
+
+  // avoid page reload by modifying url and then manually making GET request
+  var url = '/prefixed/' + word;
+  window.history.pushState({id: 'Lexicali'}, 'Lexicali', url);
+  $.get(url, function (data, status) {
+    if (status == "success") {
+      document.body.innerHTML = data;
+    }
+  });
   return false;
 }
 
 function ladder(event) {
   startWord = $('#start-word').val();
   endWord = $('#end-word').val();
-  window.location = '/word_ladder/' + startWord + '/' + endWord;
+
+// avoid page reload by modifying url and then manually making GET request
+  var url = '/word_ladder/' + startWord + '/' + endWord;
+  window.history.pushState({id: 'Lexicali'}, 'Lexicali', url);
+  $.get(url, function (data, status) {
+    if (status == "success") {
+      document.body.innerHTML = data;
+    }
+  });
   return false;
 }
 

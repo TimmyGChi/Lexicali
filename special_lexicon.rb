@@ -1,4 +1,5 @@
 require './lexicon'
+# require './graph'
 
 class SpecialLexicon < Lexicon
 
@@ -10,13 +11,11 @@ class SpecialLexicon < Lexicon
     return Lexicon.new.sortedHash[word.chars.sort.join]
   end
 
-
   # Generates an array of all the words that have the given word as a prefix
   def get_prefixed_words(prefix)
     # FILL ME IN
-    return []
+    return Lexicon.new.trie.find_words_starting_with(prefix)
   end
-
 
   # Generates the shortest possible word ladder connecting the two words
   def get_word_ladder(start_word, end_word)

@@ -18,7 +18,7 @@ class Lexicon
     while (line = file.gets)
       line.strip!.downcase!
       sortedLine = line.chars.sort.join
-      # @array.push line
+      @array.push line
       # @hash[line] = true
 
       add_anagrams(sortedLine, line)
@@ -31,8 +31,12 @@ class Lexicon
     @sortedHash
   end
 
-  def trie()
+  def trie() 
     @trie
+  end
+
+  def array()
+    @array
   end
 
   # If key exists, add to existing list. Else, create a new list with item
@@ -49,3 +53,4 @@ class Lexicon
     return @hash.has_key?(word.downcase)
   end
 end
+
